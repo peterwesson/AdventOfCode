@@ -1,80 +1,53 @@
 ﻿namespace AdventOfCode.Days
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class Day15 : BaseDay
     {
         public override string Part1(string input)
         {
-            Generator generatorA = new Generator(16807, 679);
-            Generator generatorB = new Generator(48271, 771);
+            IEnumerable<long> sequenceA = Results(679, 16807, 40000000);
+            IEnumerable<long> sequenceB = Results(771, 48271, 40000000);
 
-            int count = 0;
-
-            for (int i = 0; i < 40000000; i++)
-            {
-                generatorA.Next();
-                generatorB.Next();
-
-                long binaryA = generatorA.Value & 0xffff;
-                long binaryB = generatorB.Value & 0xffff;
-
-                if (binaryA == binaryB)
-                {
-                    count++;
-                }
-            }
-
-            return count.ToString();
+            return SequenceCompare(sequenceA, sequenceB).Count().ToString();
         }
 
         public override string Part2(string input)
         {
-            Generator generatorA = new Generator(16807, 679) { Divisor = 4 };
-            Generator generatorB = new Generator(48271, 771) { Divisor = 8 };
+            IEnumerable<long> sequenceA = Results(679, 16807, 5000000, 4);
+            IEnumerable<long> sequenceB = Results(771, 48271, 5000000, 8);
 
-            int count = 0;
-
-            for (int i = 0; i < 5000000; i++)
-            {
-                generatorA.NextValid();
-                generatorB.NextValid();
-
-                long binaryA = generatorA.Value & 0xffff;
-                long binaryB = generatorB.Value & 0xffff;
-
-                if (binaryA == binaryB)
-                {
-                    count++;
-                }
-            }
-
-            return count.ToString();
+            return SequenceCompare(sequenceA, sequenceB).Count().ToString();
         }
 
-        private class Generator
+        private static IEnumerable<long> Results(int startValue, int factor, int take, int divisor = 1)
         {
-            public Generator(int factor, int value)
+            return GenerateSequence(startValue, factor).Where(x => x % divisor == 0).Take(take).Select(i => i & 0xffff);
+        }
+
+        private static IEnumerable<long> GenerateSequence(int startValue, int factor)
+        {
+            long value = startValue;
+
+            while (true)
             {
-                this.factor = factor;
-                this.Value = value;
+                yield return value = (value * factor + 2147483647) % 2147483647;
             }
+        }
 
-            private readonly long factor;
-
-            public long Value { get; private set; }
-
-            public long Divisor { private get; set; }
-
-            public void Next()
+        private static IEnumerable<long> SequenceCompare(IEnumerable<long> sequenceA, IEnumerable<long> sequenceB)
+        {
+            using (IEnumerator<long> enumeratorA = sequenceA.GetEnumerator())
+            using (IEnumerator<long> enumeratorB = sequenceB.GetEnumerator())
             {
-                this.Value = (this.Value * factor + 2147483647) % 2147483647;
-            }
-
-            public void NextValid()
-            {
-                do
+                while (enumeratorA.MoveNext() && enumeratorB.MoveNext())
                 {
-                    this.Next();
-                } while (this.Value % this.Divisor != 0);
+                    if (enumeratorA.Current == enumeratorB.Current)
+                    {
+                        yield return enumeratorA.Current;
+                    }
+                }
             }
         }
     }
