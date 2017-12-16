@@ -20,7 +20,8 @@
                 //(new Day12(), "Day12.txt"),
                 //(new Day13(), "Day13.txt"),
                 //(new Day14(), "wenycdww"),
-                (new Day15(), null)
+                //(new Day15(), null),
+                (new Day16(), "Day16.txt")
             };
 
 
