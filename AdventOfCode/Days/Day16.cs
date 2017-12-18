@@ -12,7 +12,7 @@
 
             List<IDanceMove> danceMoves = input.Split(',').Select(ParseDanceMove).ToList();
 
-            return Solve(danceMoves, 1);
+            return Solve(danceMoves);
         }
 
         public override string Part2(string fileName)
@@ -26,9 +26,8 @@
 
         private const string InitalPrograms = "abcdefghilkjmnop";
 
-        private static string Solve(List<IDanceMove> danceMoves, int iterations)
+        private static string Solve(List<IDanceMove> danceMoves, int iterations = 1)
         {
-
             List<string> sequence = new List<string> { InitalPrograms };
 
             sequence.AddRange(GetSequence(InitalPrograms, danceMoves).TakeWhile(r => r != InitalPrograms).Take(iterations));
@@ -40,13 +39,8 @@
         {
             while (true)
             {
-                yield return programs = PerformDanceMoves(programs, danceMoves);
+                yield return programs = danceMoves.Aggregate(programs, PerformDanceMove);
             }
-        }
-
-        private static string PerformDanceMoves(string programs, List<IDanceMove> danceMoves)
-        {
-            return danceMoves.Aggregate(programs, PerformDanceMove);
         }
 
         private static string PerformDanceMove(string programs, IDanceMove danceMove)
@@ -75,9 +69,10 @@
                     partnerChars[idxA] = programs[idxB];
                     partnerChars[idxB] = programs[idxA];
                     return string.Join(string.Empty, partnerChars);
-            }
 
-            return programs;
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         private static IDanceMove ParseDanceMove(string input)
@@ -91,18 +86,21 @@
                     {
                         X = int.Parse(parameters[0])
                     };
+
                 case 'x':                    
                     return new ExchangeDanceMove
                     {
                         A = int.Parse(parameters[0]),
                         B = int.Parse(parameters[1])
                     };
+
                 case 'p':
                     return new PartnerDanceMove
                     {
                         A = parameters[0],
                         B = parameters[1]
                     };
+
                 default: throw new ArgumentException();
             }
         }

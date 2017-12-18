@@ -12,7 +12,6 @@
 
             int count = 0;
 
-
             for (int row = 0; row < 128; row++)
             {
                 for (int column = 0; column < 128; column++)
