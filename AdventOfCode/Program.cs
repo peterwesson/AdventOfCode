@@ -16,7 +16,7 @@
                 //(new Day2(), "Day2.txt"),
                 //(new Day4(), "Day4.txt"),
                 //(new Day5(), "Day5.txt"),
-                (new Day8(), "Day8.txt"),
+                //(new Day8(), "Day8.txt"),
                 //(new Day9(), "Day9.txt"),
                 //(new Day10(), "94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243"),
                 //(new Day11(), "Day11.txt"),
@@ -26,7 +26,8 @@
                 //(new Day15(), null),
                 //(new Day16(), "Day16.txt"),
                 //(new Day17(), "369"),
-                //(new Day18(), "Day18.txt")
+                //(new Day18(), "Day18.txt"),
+                (new Day19(), "Day19.txt")
             };
 
 
