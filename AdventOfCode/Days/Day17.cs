@@ -17,14 +17,7 @@
             {
                 for (int j = 0; j < steps; j++)
                 {
-                    if (currentNode == buffer.Last)
-                    {
-                        currentNode = buffer.First;
-                    }
-                    else
-                    {
-                        currentNode = currentNode.Next;
-                    }
+                    currentNode = currentNode == buffer.Last ? buffer.First : currentNode.Next;
                 }
 
                 currentNode = buffer.AddAfter(currentNode, i);

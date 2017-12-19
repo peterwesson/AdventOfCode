@@ -57,6 +57,27 @@
 
             private bool Advance()
             {
+                this.Move();
+
+                char currentChar = this.GetCharacter(this.position.X, this.position.Y);
+
+                if (currentChar >= 'A' && currentChar <= 'Z')
+                {
+                    letters += currentChar;
+                }
+
+                if (currentChar == '+')
+                {
+                    this.direction = NextDirection();
+                }
+
+                steps++;
+
+                return currentChar != 32;
+            }
+
+            private void Move()
+            {
                 switch (direction)
                 {
                     case Direction.Up:
@@ -74,20 +95,6 @@
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
-                if (this.grid[this.position.Y][this.position.X] >= 'A' && this.grid[this.position.Y][this.position.X] <= 'Z')
-                {
-                    letters += this.grid[this.position.Y][this.position.X];
-                }
-
-                if (this.grid[this.position.Y][this.position.X] == '+')
-                {
-                    this.direction = NextDirection();
-                }
-
-                steps++;
-
-                return this.grid[this.position.Y][this.position.X] != 32;
             }
 
             private Direction NextDirection()
