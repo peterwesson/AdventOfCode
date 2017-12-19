@@ -17,19 +17,10 @@
         {
             List<Direction> directions = base.ReadFileToEnd(input).Split(',').Select(GetDirection).ToList();
 
-            int max = 0;
-
-            for (int i = 1; i <= directions.Count; i++)
-            {
-                int score = GetScore(directions.Take(i).ToList());
-
-                if (score > max)
-                {
-                    max = score;
-                }
-            }
-
-            return max.ToString();
+            return Enumerable.Range(1, directions.Count)
+                .Select(i => GetScore(directions.Take(i).ToList()))
+                .Max()
+                .ToString();
         }
 
         private static Direction GetDirection(string input)

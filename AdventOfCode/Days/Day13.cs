@@ -1,7 +1,6 @@
 ﻿namespace AdventOfCode.Days
 {
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
 
     public class Day13 : BaseDay
