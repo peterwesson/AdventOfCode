@@ -28,7 +28,8 @@
 //                (new Day17(), "369"),
 //                (new Day18(), "Day18.txt"),
 //                (new Day19(), "Day19.txt"),
-                (new Day20(), "Day20.txt")
+//                (new Day20(), "Day20.txt"),
+                (new Day21(), "Day21.txt")
             };
 
 
