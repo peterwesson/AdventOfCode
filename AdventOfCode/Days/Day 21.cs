@@ -282,7 +282,7 @@
             return grid;
         }
 
-        private static (Grid input, Grid output) ParseGrids(string input)
+        private static (Grid, Grid) ParseGrids(string input)
         {
             List<Grid> grids = input.Split(new[] {" => "}, StringSplitOptions.None).Select(ParseGrid).ToList();
 
@@ -315,25 +315,10 @@
                 yield return (value.input.Rotate90(i), value.output);
             }
 
-            for (int i = 0; i < 4; i++)
-            {
-                yield return (value.input.FlipVertical().Rotate90(i), value.output);
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                yield return (value.input.FlipHorizontal().Rotate90(i), value.output);
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                yield return (value.input.FlipDiagonal().Rotate90(i), value.output);
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                yield return (value.input.FlipBoth().Rotate90(i), value.output);
-            }
+            yield return (value.input.FlipVertical().Rotate90(), value.output);
+            yield return (value.input.FlipHorizontal().Rotate90(), value.output);
+            yield return (value.input.FlipDiagonal().Rotate90(), value.output);
+            yield return (value.input.FlipBoth().Rotate90(), value.output);
         }
     }
 }
