@@ -8,7 +8,7 @@
     {
         public override string Part1(string fileName)
         {
-            IEnumerable<string> instructions = base.ImportLines<string>(fileName, line => line);
+            IEnumerable<string> instructions = base.ImportLines(fileName, line => line);
 
             Dictionary<string, int> registers = new Dictionary<string, int>();
 
@@ -22,7 +22,7 @@
 
         public override string Part2(string fileName)
         {
-            IEnumerable<string> instructions = base.ImportLines<string>(fileName, line => line);
+            IEnumerable<string> instructions = base.ImportLines(fileName, line => line);
 
             Dictionary<string, int> registers = new Dictionary<string, int>();
 
@@ -41,7 +41,7 @@
             return max.ToString();
         }
 
-        private Dictionary<string, int> ParseInstructions(string instruction, Dictionary<string, int> registers)
+        private static void ParseInstructions(string instruction, IDictionary<string, int> registers)
         {
             List<string> parts = instruction.Split(' ').ToList();
 
@@ -59,11 +59,9 @@
                         break;
                 }
             }
-
-            return registers;
         }
 
-        private bool Condition(Dictionary<string, int> registers, string register, int value, string comparison)
+        private static bool Condition(IDictionary<string, int> registers, string register, int value, string comparison)
         {
             int registerValue = GetRegisterValue(registers, register);
 
@@ -79,7 +77,7 @@
             }
         }
 
-        private int GetRegisterValue(Dictionary<string, int> registers, string register)
+        private static int GetRegisterValue(IDictionary<string, int> registers, string register)
         {
             if (!registers.ContainsKey(register))
             {
