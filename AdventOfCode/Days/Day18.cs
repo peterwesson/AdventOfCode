@@ -14,7 +14,7 @@
                 registers[register] = 0;
             }
 
-            List<string> instructions = base.ImportLines<string>(input, line => line).ToList();
+            List<string> instructions = base.ImportLines(input, line => line).ToList();
 
             bool finished = false;
             int pc = 0;
@@ -37,7 +37,7 @@
 
         public override string Part2(string input)
         {
-            List<string> instructions = base.ImportLines<string>(input, line => line).ToList();
+            List<string> instructions = base.ImportLines(input, line => line).ToList();
 
             Queue<long> queue1 = new Queue<long>();
             Queue<long> queue2 = new Queue<long>();
@@ -79,7 +79,7 @@
 
             private int programCounter;
 
-            public int SendCount { get; set; }
+            public int SendCount { get; private set; }
 
             private int deadlockCounter;
 

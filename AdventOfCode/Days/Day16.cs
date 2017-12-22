@@ -26,16 +26,16 @@
 
         private const string InitalPrograms = "abcdefghilkjmnop";
 
-        private static string Solve(List<IDanceMove> danceMoves, int iterations = 1)
+        private static string Solve(IReadOnlyCollection<IDanceMove> danceMoves, int iterations = 1)
         {
             List<string> sequence = new List<string> { InitalPrograms };
 
             sequence.AddRange(GetSequence(InitalPrograms, danceMoves).TakeWhile(r => r != InitalPrograms).Take(iterations));
 
-            return sequence[iterations % sequence.Count()];
+            return sequence[iterations % sequence.Count];
         }
 
-        private static IEnumerable<string> GetSequence(string programs, List<IDanceMove> danceMoves)
+        private static IEnumerable<string> GetSequence(string programs, IReadOnlyCollection<IDanceMove> danceMoves)
         {
             while (true)
             {
@@ -133,8 +133,6 @@
             public string A { get; set; }
 
             public string B { get; set; }
-
-            public int X { get; set; }
         }
         
         public enum DanceMoveType
