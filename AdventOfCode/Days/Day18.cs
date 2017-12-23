@@ -164,8 +164,6 @@
             }
         }
 
-
-
         private static long ParseInstruction(string line, Dictionary<char, long> registers, out int jump)
         {
             List<string> parts = line.Split(' ').ToList();
