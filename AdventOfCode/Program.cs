@@ -32,7 +32,8 @@
                 //(new Day21(), "Day21.txt"),
                 //(new Day22(), "Day22.txt"),
                 //(new Day23(), "Day23.txt"),
-                (new Day24(), "Day24.txt")
+                //(new Day24(), "Day24.txt"),
+                (new Day25(), "Day25.txt")
             };
 
 
